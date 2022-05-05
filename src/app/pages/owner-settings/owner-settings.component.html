@@ -1,0 +1,253 @@
+<div class="content">
+  <div class="container">
+    <form (submit)="saveUserInfo($event)" [formGroup]="userSettingsForm" novalidate *ngIf="userSettingsForm">
+    <div class="user-settings">
+        <div class="user-settings-params">
+          <div class="title">First Name:</div>
+          <div class="input userInfoFields">
+            <input
+              name="ownerFirstName"
+              formControlName="userFirstName"
+              type="text"
+              placeholder="{{ownerInfo?.firstName}}"
+            >
+            <div
+              *ngIf="userSettingsForm.get('userFirstName')?.invalid &&
+              userSettingsForm.get('userFirstName')?.errors &&
+              (userSettingsForm.get('userFirstName')?.dirty ||
+               userSettingsForm.get('userFirstName')?.touched)">
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userFirstName')?.hasError('required')">
+                This field is required.
+              </small>
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userFirstName')?.hasError('minlength')">
+                The minimum length for this field is 4 characters.
+              </small>
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userFirstName')?.hasError('maxlength')">
+                The maximum length for this field is 20 characters.
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="user-settings-params">
+          <div class="title">Middle Name:</div>
+          <div class="input userInfoFields">
+            <input
+              name="ownerMiddleName"
+              formControlName="userMiddleName"
+              type="text"
+              placeholder="{{ownerInfo?.middleName}}">
+            <div
+              *ngIf="userSettingsForm.get('userMiddleName')?.invalid &&
+              userSettingsForm.get('userMiddleName')?.errors &&
+              (userSettingsForm.get('userMiddleName')?.dirty ||
+               userSettingsForm.get('userMiddleName')?.touched)">
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userMiddleName')?.hasError('required')">
+                This field is required.
+              </small>
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userMiddleName')?.hasError('minlength')">
+                The minimum length for this field is 4 characters.
+              </small>
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userMiddleName')?.hasError('maxlength')">
+                The maximum length for this field is 20 characters.
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="user-settings-params">
+          <div class="title">Last Name:</div>
+          <div class="input userInfoFields">
+            <input
+              name="ownerLastName"
+              formControlName="userLastName"
+              type="text"
+              placeholder="{{ownerInfo?.lastName}}">
+            <div
+              *ngIf="userSettingsForm.get('userLastName')?.invalid &&
+              userSettingsForm.get('userLastName')?.errors &&
+              (userSettingsForm.get('userLastName')?.dirty ||
+               userSettingsForm.get('userLastName')?.touched)">
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userLastName')?.hasError('required')">
+                This field is required.
+              </small>
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userLastName')?.hasError('minlength')">
+                The minimum length for this field is 4 characters.
+              </small>
+              <small class="text-danger"
+                     *ngIf="userSettingsForm.get('userLastName')?.hasError('maxlength')">
+                The maximum length for this field is 20 characters.
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2>Cars:</h2>
+      <div  class="cars-settings">
+        <div class="row">
+          <div class="item header">Car Number</div>
+          <div class="item header">Car Model</div>
+          <div class="item header">Model Name</div>
+          <div class="item header">Year</div>
+        </div>
+        <div class="row" *ngFor="let item of ownerInfo?.cars">
+          <div class="item input">
+            <div>
+              {{item.carNumber}}
+            </div>
+          </div>
+          <div class="item input">
+            <div>
+              {{item.carModel}}
+            </div>
+          </div>
+          <div class="item input">
+            <div>
+              {{item.modelName}}
+            </div>
+          </div>
+          <div class="item input">
+            <div>
+              {{item.year}}
+            </div>
+          </div>
+          <div class="delete-button-container" *ngIf="changeState">
+            <button (click)="deleteCar(item.carNumber)" mat-raised-button color="warn">
+              <fa-icon class="icon" [icon]="icons.faTrashCan"></fa-icon>
+            </button>
+          </div>
+        </div>
+        <form [formGroup]="carSettingsForm" (submit)="addNewCar($event)" novalidate>
+          <div class="row">
+            <div class="item input">
+              <div>
+                <input
+                  class="car-number"
+                  name="carNumber"
+                  formControlName="carNumber"
+                  type="text"
+                  placeholder="Car number">
+                <div
+                  *ngIf="carSettingsForm.get('carNumber')?.invalid &&
+                  carSettingsForm.get('carNumber')?.errors &&
+                  (carSettingsForm.get('carNumber')?.dirty ||
+                   carSettingsForm.get('carNumber')?.touched)">
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('carNumber')?.hasError('required')">
+                    This field is required.
+                  </small>
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('carNumber')?.hasError('pattern')">
+                    Correct: "XX0000XX"
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="item
+            input">
+              <div>
+                <input
+
+                  name="carModel"
+                  formControlName="carModel"
+
+                  type="text"
+                  placeholder="Car model">
+                <div
+                  *ngIf="carSettingsForm.get('carModel')?.invalid &&
+                  carSettingsForm.get('carModel')?.errors &&
+                  (carSettingsForm.get('carModel')?.dirty ||
+                   carSettingsForm.get('carModel')?.touched)">
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('carModel')?.hasError('required')">
+                    This field is required.
+                  </small>
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('carModel')?.hasError('minlength')">
+                    Min 3 characters.
+                  </small>
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('carModel')?.hasError('maxlength')">
+                     Max 20 characters.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="item input">
+              <div>
+                <input
+                  name="modelName"
+                  formControlName="modelName"
+                  type="text"
+                  placeholder="Model name">
+                <div
+                  *ngIf="carSettingsForm.get('modelName')?.invalid &&
+                  carSettingsForm.get('modelName')?.errors &&
+                  (carSettingsForm.get('modelName')?.dirty ||
+                   carSettingsForm.get('modelName')?.touched)">
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('modelName')?.hasError('required')">
+                    This field is required.
+                  </small>
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('modelName')?.hasError('minlength')">
+                    Min 3 characters.
+                  </small>
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('modelName')?.hasError('maxlength')">
+                    Max 20 characters.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="item input">
+              <div>
+                <input
+                  name="year"
+                  formControlName="year"
+                  type="number"
+                  placeholder="Year">
+                <div
+                  *ngIf="carSettingsForm.get('year')?.invalid &&
+                  carSettingsForm.get('year')?.errors &&
+                  (carSettingsForm.get('year')?.dirty ||
+                   carSettingsForm.get('year')?.touched)">
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('year')?.hasError('required')">
+                    This field is required.
+                  </small>
+                  <small class="text-danger"
+                         *ngIf="carSettingsForm.get('year')?.hasError('min') || carSettingsForm.get('year')?.hasError('maxlength')">
+                    must be from 1990 to now;
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="delete-button-container">
+              <button
+                *ngIf="changeState"
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="carSettingsForm.invalid"
+              >
+                <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>
+              </button>
+            </div>
+          </div>
+          <div class="row" *ngIf="isCarDuplicates">
+            <h4 class="error">This car belongs to other owner, please try with another car</h4>
+          </div>
+        </form>
+      </div>
+      <button *ngIf="changeState" type="submit" mat-raised-button color="primary" [disabled]="userSettingsForm.invalid" class="submit-btn">Save Info</button>
+      <button type="button" mat-raised-button color="accent" (click)="returnToHomePage()" class="submit-btn">EXIT</button>
+    </form>
+  </div>
+</div>

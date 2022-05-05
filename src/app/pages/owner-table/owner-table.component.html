@@ -1,0 +1,29 @@
+<div class="content">
+  <div class="container">
+    <div class="button-container">
+      <button mat-stroked-button  (click)="choseOwner(-1); createNewOwner()">
+        <fa-icon class="icon" [icon]="icons.faPlus"></fa-icon>Create new
+      </button>
+      <div class="edit-button-container">
+        <button mat-stroked-button [disabled]="!!!selectedId" (click)="watchDetails()"><fa-icon class="icon" [icon]="icons.faEye"></fa-icon>Open</button>
+        <button mat-stroked-button [disabled]="!!!selectedId" (click)="changeParams()"><fa-icon class="icon" [icon]="icons.faPenToSquare"></fa-icon>Change</button>
+        <button mat-stroked-button [disabled]="!!!selectedId" (click)="deleteItem()"><fa-icon class="icon" [icon]="icons.faTrashCan"></fa-icon>Delete</button>
+      </div>
+    </div>
+    <table>
+      <tr>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th class="carsNumber">Number of Cars</th>
+      </tr>
+      <tr class="selectable" [ngClass]="{'selected-row' : item.id == selectedId}" *ngFor="let item of userArr" (click)="choseOwner(item.id)">
+        <td>{{item.firstName}}</td>
+        <td>{{item.middleName}}</td>
+        <td>{{item.lastName}}</td>
+        <td class="carsNumber">{{item.cars.length}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
